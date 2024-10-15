@@ -1,0 +1,37 @@
+<div class="container">
+    <h2>Manage Categories</h2>
+
+    <!-- Form to Add/Edit Categories -->
+    <form (ngSubmit)="isEditing ? updateCategory() : addCategory()">
+        <div class="mb-3">
+            <label for="categoryName" class="form-label">Category Name</label>
+            <input type="text" class="form-control" id="categoryName" [(ngModel)]="newCategory.name" name="categoryNameField" #categoryNameField="ngModel" placeholder="Enter category name" required>
+
+            <!-- Category Name Error Message -->
+            <div *ngIf="categoryNameField.invalid && (categoryNameField.dirty || categoryNameField.touched)" class="text-danger">
+                <div *ngIf="categoryNameField.errors?.['required']">Category name is required.</div>
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <label for="categoryDescription">Category Description</label>
+            <textarea name="categoryDescription" id="categoryDescription" class="form-control" [(ngModel)]="newCategory.description" placeholder="Enter category description"></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-primary">
+            {{ isEditing ? 'Update Category' : 'Add Category' }}
+        </button>
+
+        <button type="button" class="btn btn-secondary" (click)="resetForm()" *ngIf="isEditing">Cancel</button>
+    </form>
+
+    <!-- Category List -->
+    <h3 class="mt-5">Category List</h3>
+    <ul class="list-group">
+        <li class="list-group-item" *ngFor="let category of categories">
+            <strong>{{ category.name }}</strong> - {{ category.description || 'No description' }}
+            <button class="btn btn-sm btn-primary ms-2" (click)="editCategory(category)">Edit</button>
+            <button class="btn btn-sm btn-danger ms-2" (click)="deleteCategory(category.id)">Delete</button>
+        </li>
+    </ul>
+</div>

@@ -1,0 +1,17 @@
+.container {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+h2,
+h3 {
+  margin-top: 20px;
+}
+
+button {
+  margin-right: 10px;
+}
+
+input.ng-invalid.ng-touched {
+  border: 1px solid red;
+}

@@ -1,0 +1,49 @@
+form.d-flex {
+  max-width: 500px;
+  width: 100%;
+}
+
+input.form-control {
+  border-radius: 30px;
+}
+
+button.btn {
+  border-radius: 30px;
+}
+
+/* Dropdown visibility */
+.category-dropdown {
+  display: block;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.5s ease-in-out;
+}
+
+.category-dropdown.is-visible {
+    border-top: 2px solid #ccc;
+    max-height: 400px;
+}
+
+.list-unstyled {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0;
+}
+
+/* Hide the dropdown initially */
+.category-dropdown.ng-hide {
+  max-height: 0;
+}
+
+/* Category link styles */
+.category-link {
+  color: #007bff;
+  text-decoration: none;
+  padding: 0 1rem;
+  display: block;
+  /* border: 1px solid red; */
+}
+
+.category-link:hover {
+  text-decoration: underline;
+}

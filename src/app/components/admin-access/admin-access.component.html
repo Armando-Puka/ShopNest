@@ -1,0 +1,18 @@
+<div class="container">
+    <h2>Admin Access - Set User Roles</h2>
+
+    <div class="mb-3">
+        <label for="username" class="form-label">Username or Email</label>
+        <input type="text" class="form-control" id="username" [(ngModel)]="username" placeholder="Enter username or email">
+    </div>
+
+    <div class="mb-3">
+        <label for="role" class="form-label">Role</label>
+        <select name="role" id="role" class="form-select" [(ngModel)]="selectedRole">
+            <option value="user">User</option>
+            <option value="admin">Admin</option>
+        </select>
+    </div>
+
+    <button class="btn btn-primary" (click)="onSetRole()">Set Role</button>
+</div>

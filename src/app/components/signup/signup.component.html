@@ -1,0 +1,144 @@
+<div class="container">
+    <h2>Sign Up</h2>
+
+    <form (ngSubmit)="onSignUp()" #signupForm="ngForm">
+        <!-- Name -->
+        <div class="mb-3">
+            <label for="name" class="form-label">Name</label>
+            <input type="text" class="form-control" id="name" [(ngModel)]="name" name="name" #nameField="ngModel" required minlength="2" maxlength="50" pattern="^([A-Z])+[a-zA-Z\s]+$">
+
+            <!-- Name Error Messages -->
+         <div *ngIf="nameField.invalid && (nameField.dirty || nameField.touched)" class="text-danger">
+            <div *ngIf="nameField.errors?.['required']">Name is required.</div>
+            <div *ngIf="nameField.errors?.['minlength']">Name must be at least 2 characters long.</div>
+            <div *ngIf="nameField.errors?.['maxlength']">Name must be less than 50 characters.</div>
+            <div *ngIf="nameField.errors?.['pattern']">Name must start with a capital letter and only contain letters.</div>
+         </div>
+        </div>
+        
+        <!-- Last Name -->
+        <div class="mb-3">
+            <label for="lastName" class="form-label">Last Name</label>
+            <input type="text" class="form-control" id="lastName" [(ngModel)]="lastName" name="lastName" #lastNameField="ngModel" required minlength="2" maxlength="50" pattern="^([A-Z])+[a-zA-Z\s]+$">
+
+            <!-- Last Name Error Messages -->
+             <div *ngIf="lastNameField.invalid && (lastNameField.dirty || lastNameField.touched)" class="text-danger">
+                <div *ngIf="lastNameField.errors?.['required']">Last name is required.</div>
+                <div *ngIf="lastNameField.errors?.['minlength']">Last name must be at least 2 characters long.</div>
+                <div *ngIf="lastNameField.errors?.['maxlength']">Last name must be less than 50 characters.</div>
+                <div *ngIf="lastNameField.errors?.['pattern']">Last name must start with a capital letter and only contain letters.</div>
+             </div>
+        </div>
+        
+        <!-- Username -->
+        <div class="mb-3">
+            <label for="username" class="form-label">Username</label>
+            <input type="text" class="form-control" id="username" [(ngModel)]="username" name="username" #usernameField="ngModel" required minlength="4" maxlength="20" pattern="^[a-zA-Z0-9_]+$">
+
+            <!-- Username Error Messages -->
+             <div *ngIf="usernameField.invalid && (usernameField.dirty || usernameField.touched)" class="text-danger">
+                <div *ngIf="usernameField.errors?.['required']">Username is required.</div>
+                <div *ngIf="usernameField.errors?.['minlength']">Username must be at least 4 characters long.</div>
+                <div *ngIf="usernameField.errors?.['maxlength']">Username must be less than 20 characters.</div>
+                <div *ngIf="usernameField.errors?.['pattern']">Username can only contain letters, numbers, and underscores.</div>
+             </div>
+        </div>
+        
+        <!-- Email -->
+        <div class="mb-3">
+            <label for="email" class="form-label">Email</label>
+            <input type="email" class="form-control" id="email" [(ngModel)]="email" name="email" #emailField="ngModel" required maxlength="70" email (ngModelChange)="onEmailChange()" [ngClass]="{'ng-invalid': emailExists, 'ng-touched': emailField.touched}">
+
+            <!-- Email Error Messages -->
+            <div *ngIf="emailField.invalid && (emailField.dirty || emailField.touched)" class="text-danger">
+                <div *ngIf="emailField.errors?.['required']">Email is required.</div>
+                <div *ngIf="emailField.errors?.['email']">Please enter a valid email address.</div>
+                <div *ngIf="emailField.errors?.['maxlength']">Email must be less than 50 characters.</div>
+            </div>
+            <div *ngIf="emailExists" class="text-danger">This email is already registered.</div>
+        </div>
+        
+        <!-- Address -->
+        <div class="mb-3">
+            <label for="address" class="form-label">Address</label>
+            <input type="text" class="form-control" id="address" [(ngModel)]="address" name="address" #addressField="ngModel" required minlength="5" maxlength="100">
+
+            <!-- Address Error Messages -->
+            <div *ngIf="addressField.invalid && (addressField.dirty || addressField.touched)" class="text-danger">
+                <div *ngIf="addressField.errors?.['required']">Address is required.</div>
+                <div *ngIf="addressField.errors?.['minlength']">Address must be at least 5 characters long.</div>
+                <div *ngIf="addressField.errors?.['maxlength']">Address must be less than 100 characters.</div>
+            </div>
+        </div>
+        
+        <!-- Birthday -->
+        <div class="mb-3">
+            <label for="birthday" class="form-label">Birthday</label>
+            <input type="date" class="form-control" id="birthday" [(ngModel)]="birthday" name="birthday" #birthdayField="ngModel" required (ngModelChange)="validateAge(birthdayField)" [ngClass]="{'is-invalid': birthdayField.invalid && (birthdayField.dirty || birthdayField.touched)}">
+
+            <div *ngIf="birthdayField.invalid && (birthdayField.dirty || birthdayField.touched)" class="text-danger">
+                <div *ngIf="birthdayField.errors?.['required']">Birthday is required.</div>
+                <div *ngIf="birthdayField.errors?.['invalidAge']">You must be at least 18 years old.</div>
+            </div>
+        </div>
+
+        <!-- Gender -->
+        <div class="mb-3">
+            <label for="gender" class="form-label">Gender</label>
+            <select class="form-select" id="gender" [(ngModel)]="gender" name="gender" #genderField="ngModel" required>
+                <option value="" disabled>Select Gender</option>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+                <option value="other">Other</option>
+            </select>
+
+            <!-- Gender Error Messages -->
+            <div *ngIf="genderField.invalid && (genderField.dirty || genderField.touched)" class="text-danger">
+                <div *ngIf="genderField.errors?.['required']">Gender is required.</div>
+            </div>
+        </div>
+        
+        <!-- Password -->
+        <div class="mb-3">
+            <label for="password" class="form-label">Password</label>
+            <input type="password" class="form-control" id="password" [(ngModel)]="password" name="password" #passwordField="ngModel" required minlength="8" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$">
+
+            <!-- Password Error Messages -->
+            <div *ngIf="passwordField.invalid && (passwordField.dirty || passwordField.touched)" class="text-danger">
+                <div *ngIf="passwordField.errors?.['required']">Password is required.</div>
+                <div *ngIf="passwordField.errors?.['minlength']">Password must be at least 8 characters long.</div>
+                <div *ngIf="passwordField.errors?.['pattern']">
+                    Password must contain:
+                    <ul>
+                        <li>At least one uppercase letter.</li>
+                        <li>At least one lowercase letter.</li>
+                        <li>At least one number.</li>
+                        <li>At least one special character.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Confirm Password -->
+        <div class="mb-3">
+            <label for="confirmPassword" class="form-label">Confirm Password</label>
+            <input type="password" class="form-control" id="confirmPassword" [(ngModel)]="confirmPassword" name="confirmPassword" #confirmPasswordField="ngModel" required [ngClass]="{'is-invalid': confirmPasswordField.invalid && (confirmPasswordField.dirty || confirmPasswordField.touched)}">
+
+            <!-- Confirm Password Error Messages -->
+            <div *ngIf="confirmPasswordField.invalid && (confirmPasswordField.dirty || confirmPasswordField.touched)" class="text-danger">
+                <div *ngIf="confirmPasswordField.errors?.['required']">Confirm password is required.</div>
+            </div>
+
+            <!-- Password Match Error Message -->
+            <div *ngIf="password !== confirmPassword && (confirmPasswordField.dirty || confirmPasswordField.touched)" class="text-danger">
+                Passwords do not match.
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary" [disabled]="!signupForm.form.valid">Sign Up</button>
+
+        <div class="mt-3">
+            <span>Already have an account? <a [routerLink]="['/login']">Login</a></span>
+        </div>
+    </form>
+</div>

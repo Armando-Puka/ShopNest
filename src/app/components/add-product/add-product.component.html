@@ -1,0 +1,80 @@
+<div class="container mt-5">
+    <h2>Manage Products</h2>
+
+    <form #productForm="ngForm" (ngSubmit)="addProduct(productForm)">
+        <!-- Name -->
+        <div class="mb-3">
+            <label for="name" class="form-label">Product Name</label>
+            <input type="text" class="form-control" id="name" [(ngModel)]="newProduct.name" name="name" #nameField="ngModel" required>
+
+            <!-- Name Error Message -->
+            <div *ngIf="nameField.invalid && (nameField.dirty || nameField.touched)" class="text-danger">
+                <div *ngIf="nameField.errors?.['required']">Name is required.</div>
+            </div>
+        </div>
+
+        <!-- Description -->
+        <div class="mb-3">
+            <label for="description" class="form-label">Description</label>
+            <textarea name="description" id="description" [(ngModel)]="newProduct.description" class="form-control" #descriptionField="ngModel" required></textarea>
+
+            <!-- Description Error Message -->
+            <div *ngIf="descriptionField.invalid && (descriptionField.dirty || descriptionField.touched)" class="text-danger">
+                <div *ngIf="descriptionField.errors?.['required']">Description is required.</div>
+            </div>
+        </div>
+
+        <!-- Price -->
+        <div class="mb-3">
+            <label for="price" class="form-label">Price</label>
+            <input type="number" name="price" id="price" [(ngModel)]="newProduct.price" class="form-control" #priceField="ngModel" required min="1">
+
+            <!-- Price Error Message -->
+            <div *ngIf="priceField.invalid && (priceField.dirty || priceField.touched)" class="text-danger">
+                <div *ngIf="priceField.errors?.['required']">Price is required.</div>
+                <div *ngIf="priceField.errors?.['min']">Minimum price is 1.</div>
+            </div>
+        </div>
+
+        <!-- Image -->
+        <div class="mb-3">
+            <label for="imageUrl" class="form-label">Image URL</label>
+            <input type="text" name="imageUrl" id="imageUrl" [(ngModel)]="newProduct.imageUrl" class="form-control" #imageUrlField="ngModel" required>
+
+            <!-- Image URL Error Message -->
+            <div *ngIf="imageUrlField.invalid && (imageUrlField.dirty || imageUrlField.touched)" class="text-danger">
+                <div *ngIf="imageUrlField.errors?.['required']">Image URL is required.</div>
+            </div>
+        </div>
+
+        <!-- Category -->
+        <div class="mb-3">
+            <label for="category" class="form-label">Category</label>
+            <select name="category" id="category" [(ngModel)]="newProduct.category" class="form-select" #categoryField="ngModel" required>
+                <option value="" disabled selected>Select a category</option>
+                <option *ngFor="let category of categories" [value]="category.name">{{ category.name }}</option>
+            </select>
+
+            <!-- Category Error Message -->
+            <div *ngIf="categoryField.invalid && (categoryField.dirty || categoryField.touched)" class="text-danger">
+                <div *ngIf="categoryField.errors?.['required']">Choose a category.</div>
+            </div>
+        </div>
+
+        <!-- Stock Quantity -->
+        <div class="mb-3">
+            <label for="stockQuantity" class="form-label">Stock Quantity</label>
+            <input type="number" name="stockQuantity" id="stockQuantity" [(ngModel)]="newProduct.stockQuantity" class="form-control" #stockQuantityField="ngModel" required min="1">
+
+            <!-- Stock Quantity Error Message -->
+            <div *ngIf="stockQuantityField.invalid && (stockQuantityField.dirty || stockQuantityField.touched)" class="text-danger">
+                <div *ngIf="stockQuantityField.errors?.['required']">Stock Quantity is required.</div>
+                <div *ngIf="stockQuantityField.errors?.['min']">Minimum stock quantity is 1.</div>
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary" [disabled]="productForm.invalid">Add Product</button>
+
+        <app-product-list></app-product-list>
+    </form>
+</div>

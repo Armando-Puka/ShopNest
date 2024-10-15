@@ -1,0 +1,40 @@
+<div class="container">
+    <h2>Login</h2>
+
+    <form (ngSubmit)="onLogin(loginForm)" #loginForm="ngForm" novalidate>
+        <!-- Username or Email -->
+        <div class="mb-3">
+            <label for="username" class="form-label">Username or Email</label>
+            <input type="text" class="form-control" id="username" [(ngModel)]="username" name="username" #usernameField="ngModel" required (ngModelChange)="resetLoginError()">
+
+            <!-- Username/Email Error Messages -->
+            <div *ngIf="usernameField.invalid && (usernameField.dirty || usernameField.touched)" class="text-danger">
+                <div *ngIf="usernameField.errors?.['required']">Username or Email is required.</div>
+            </div>
+        </div>
+
+        <!-- Password -->
+        <div class="mb-3">
+            <label for="password" class="form-label">Password</label>
+            <input type="password" class="form-control" id="password" [(ngModel)]="password" name="password" #passwordField="ngModel" required (ngModelChange)="resetLoginError()">
+
+            <!-- Password Error Messages -->
+            <div *ngIf="passwordField.invalid && (passwordField.dirty || passwordField.touched)" class="text-danger">
+                <div *ngIf="passwordField.errors?.['required']">Password is required.</div>
+            </div>
+
+            <!-- Login Error Message -->
+            <div *ngIf="loginError" class="text-danger mt-2">
+                Invalid username or password. Please try again.
+            </div>
+        </div>
+
+        
+
+        <button type="submit" class="btn btn-primary" [disabled]="!loginForm.form.valid">Login</button>
+
+        <div class="mt-3">
+            <span>Don't have an account? <a [routerLink]="['/signup']">Sign Up</a></span>
+        </div>
+    </form>
+</div>

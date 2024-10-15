@@ -1,0 +1,31 @@
+.card-img-top {
+    height: 200px;
+    object-fit: cover;
+}
+
+.card {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s;
+}
+
+.card:hover {
+    transform: translateY(-10px);
+}
+
+.card-footer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    padding: 15px;
+    background-color: #fff;
+}
+
+.card-footer button {
+    width: 100%;
+}
+
+button {
+    min-width: 100px;
+}
