@@ -2,20 +2,20 @@
     <h2>Manage Categories</h2>
 
     <!-- Form to Add/Edit Categories -->
-    <form (ngSubmit)="isEditing ? updateCategory() : addCategory()">
+    <form [formGroup]="categoriesForm" (ngSubmit)="isEditing ? updateCategory() : addCategory()">
         <div class="mb-3">
             <label for="categoryName" class="form-label">Category Name</label>
-            <input type="text" class="form-control" id="categoryName" [(ngModel)]="newCategory.name" name="categoryNameField" #categoryNameField="ngModel" placeholder="Enter category name" required>
+            <input type="text" class="form-control" id="categoryName" formControlName="categoryName" name="categoryName" placeholder="Enter category name" required>
 
             <!-- Category Name Error Message -->
-            <div *ngIf="categoryNameField.invalid && (categoryNameField.dirty || categoryNameField.touched)" class="text-danger">
-                <div *ngIf="categoryNameField.errors?.['required']">Category name is required.</div>
+            <div *ngIf="categoriesForm.get('categoryName')?.invalid && (categoriesForm.get('categoryName')?.dirty || categoriesForm.get('categoryName')?.touched)" class="text-danger">
+                <div *ngIf="categoriesForm.get('categoryName')?.errors?.['required']">Category name is required.</div>
             </div>
         </div>
 
         <div class="mb-3">
             <label for="categoryDescription">Category Description</label>
-            <textarea name="categoryDescription" id="categoryDescription" class="form-control" [(ngModel)]="newCategory.description" placeholder="Enter category description"></textarea>
+            <textarea name="categoryDescription" id="categoryDescription" formControlName="categoryDescription" class="form-control" placeholder="Enter category description"></textarea>
         </div>
 
         <button type="submit" class="btn btn-primary">
