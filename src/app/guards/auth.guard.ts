@@ -10,7 +10,7 @@ export class AuthGuard implements CanActivate {
   
   canActivate(): boolean {
     // Check if the user is logged in
-    const isLoggedIn = !!this.authService.getCurrentUser();
+    const isLoggedIn = this.authService.getCurrentUser();
 
     if (!isLoggedIn) {
       // If the user is logged in, redirect to home
@@ -24,7 +24,24 @@ export class AuthGuard implements CanActivate {
 @Injectable({
   providedIn: 'root',
 })
+export class GeneralGuard implements CanActivate {
+  constructor(private authService: AuthService, private router: Router) {}
 
+  canActivate(): boolean {
+    const currentUser = this.authService.getCurrentUser();
+
+    if (currentUser) {
+      return true;
+    }
+
+    this.router.navigate(['/']);
+    return false;
+  }
+}
+
+@Injectable({
+  providedIn: 'root',
+})
 export class AdminAuthGuard implements CanActivate {
   constructor(private authService: AuthService, private router: Router) {}
 

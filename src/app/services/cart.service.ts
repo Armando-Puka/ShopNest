@@ -1,27 +1,41 @@
-import { Injectable } from '@angular/core';
+import { Injectable, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
 import { CartItem } from '../cart-item.model';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CartService {
-  private cartKey = 'cart';
-
+  private cartSignal = signal<CartItem[]>([]);
   private cartSubject = new BehaviorSubject<CartItem[]>(this.getCartItems());
   cart$ = this.cartSubject.asObservable();
 
-  constructor(private router: Router) { }
-
-  private getCartItems(): CartItem[] {
-    const cart = localStorage.getItem(this.cartKey);
-    return cart ? JSON.parse(cart) : [];
+  constructor(private authService: AuthService) {
+    this.loadUserCart();
   }
 
-  private saveCartItems(cartItems: CartItem[]): void {
-    localStorage.setItem(this.cartKey, JSON.stringify(cartItems));
-    this.cartSubject.next(cartItems);
+  getCartSignal() {
+    return this.cartSignal;
+  }
+
+  loadUserCart(): void {
+    const currentUser = this.authService.getCurrentUser();
+    if (currentUser && currentUser.cart) {
+      const cartItems = currentUser.cart || [];
+      this.cartSubject.next(cartItems);
+    } else {
+      this.cartSubject.next([]);
+    }
+  }
+
+
+  getCartItems(): CartItem[] {
+    const currentUser = this.authService.getCurrentUser();
+    return currentUser && currentUser.cart ? currentUser.cart : [];
+    // const cart = localStorage.getItem(this.cartKey);
+    // return cart ? JSON.parse(cart) : [];
   }
 
   // Add a product to the cart
@@ -31,12 +45,13 @@ export class CartService {
 
     if (existingItem) {
       existingItem.quantity += product.quantity;
-      existingItem.totalPrice = existingItem.quantity * product.price;
+      existingItem.totalPrice = existingItem.quantity * existingItem.price;
     } else {
       cartItems.push(product);
     }
 
     this.saveCartItems(cartItems);
+    this.authService.updateCartCount();
   }
 
   // Remove a product from the cart
@@ -51,17 +66,29 @@ export class CartService {
     this.saveCartItems([]);
   }
 
-  getCartCount(): number {
-    const cartItems = this.getCartItems();
-    return cartItems.reduce((total, item) => total + item.quantity, 0);
+  updateCartItem(updateItem: CartItem): void {
+    let cartItems = this.getCartItems();
+
+    const itemIndex = cartItems.findIndex(item => item.productId === updateItem.productId);
+
+    if (itemIndex !== -1) {
+      cartItems[itemIndex] = updateItem;
+    }
+
+    this.saveCartItems(cartItems);
+    this.authService.updateCartCount();
   }
 
-  viewCart(): void {
-    const isLoggedIn = !!localStorage.getItem('user');
-    if (!isLoggedIn) {
-      this.router.navigate(['/login']);
-    } else {
-      this.router.navigate(['/cart']);
+  private saveCartItems(cartItems: CartItem[]): void {
+    const currentUser = this.authService.getCurrentUser();
+    if (currentUser) {
+      currentUser.cart = cartItems;
+
+      localStorage.setItem('loggedInUser', JSON.stringify(currentUser));
+
+      this.cartSubject.next(cartItems);
     }
+    // localStorage.setItem(this.cartKey, JSON.stringify(cartItems));
+    // this.cartSubject.next(cartItems);
   }
 }

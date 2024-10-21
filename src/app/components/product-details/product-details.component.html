@@ -1,16 +1,37 @@
 <div class="container mt-5" *ngIf="product">
-    <h2>{{ product.name }}</h2>
-
     <div class="row mt-4">
         <div class="col-md-6">
             <img [src]="product.imageUrl" class="img-fluid" alt="{{ product.name }}">
         </div>
         <div class="col-md-6">
-            <p><strong>Description:</strong> {{ product.description }}</p>
-            <p><strong>Price:</strong> {{ product.price }}</p>
-            <p><strong>Stock:</strong> {{ product.stockQuantity }}</p>
-            <p><strong>Category:</strong> {{ product.category }}</p>
-            <button class="btn btn-success" (click)="addToCart()">Add to Cart</button>
+            <div>
+                <h2>{{ product.name }}</h2>
+                <hr>
+                <p><strong>Category:</strong> {{ product.category }}</p>
+                <hr>
+                <p><strong>Description:</strong></p>
+                <p>{{ product.description }}</p>
+                <hr>
+                <p><strong>Price:</strong> {{ product.price }}</p>
+            </div>
+
+            <!-- In Stock Message -->
+            <div *ngIf="product.stockQuantity > 0">
+                <p><strong>In Stock:</strong> {{ product.stockQuantity }}</p>
+
+                <!-- Quantity Input -->
+                <label for="quantity"><strong>Quantity:</strong></label>
+                <input type="number" [(ngModel)]="selectedQuantity" id="quantity" class="form-control mb-2" [max]="product.stockQuantity" min="1" (ngModelChange)="validateQuantity()" value="1" style="width: 100px;">
+
+                <!-- Add to Cart Button -->
+                <button class="btn btn-success" [disabled]="selectedQuantity < 1" (click)="addToCart()">Add to Cart</button>
+            </div>
+            
+
+            <!-- Out of Stock Message -->
+            <div *ngIf="product.stockQuantity <= 0">
+                <p class="text-danger">Out of stock</p>
+            </div>
         </div>
     </div>
 </div>

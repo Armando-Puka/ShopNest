@@ -4,7 +4,6 @@ import { FormsModule, NgModel } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import * as bcrypt from 'bcryptjs';
 
-
 @Component({
   selector: 'app-signup',
   standalone: true,
@@ -98,7 +97,8 @@ export class SignupComponent {
       birthday: this.birthday,
       gender: this.gender,
       password: hashedPassword,
-      role: 'user'
+      role: 'user',
+      cart: []
     }
 
     // Add the new user to the array of existing users

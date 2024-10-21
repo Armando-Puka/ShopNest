@@ -27,10 +27,11 @@
                 <li class="nav-item">
                     <a href="#" class="nav-link">My Account</a>
                 </li>
-                <li class="nav-item">
-                    <a [routerLink]="['/cart']" href="#" class="nav-link">
+                <li class="nav-item" *ngIf="currentUser()">
+                    <a [routerLink]="['/cart']" class="nav-link">
+                        Cart
                         <i class="fa fa-shopping-cart"></i>
-                        <span class="badge bg-success">{{ cartCount }}</span>
+                        <span class="badge bg-danger">{{ cartCount() }}</span>
                     </a>
                 </li>
                 <li *ngIf="currentUser()?.role === 'admin'">

@@ -19,15 +19,15 @@ export class HeaderComponent implements OnInit {
   currentUser = computed(() => this.authService.getCurrentUser()); // Get the reactive signal for current user
   categories: Category[] = [];
   dropdownVisible: boolean = false;
-  cartCount: number = 0;
+  cartCount = computed(() => this.authService.getCartCountSignal()());
 
   constructor(private router: Router, private authService: AuthService, private categoryService: AdminCategoryService, private cartService: CartService) {}
 
   ngOnInit(): void {
     // Subscribe to card updates and update cart count
-    this.cartService.cart$.subscribe((cartItems) => {
-      this.cartCount = cartItems.reduce((total, item) => total + item.quantity, 0);
-    });
+    // this.cartService.cart$.subscribe((cartItems) => {
+    //   this.cartCount = cartItems.reduce((total, item) => total + item.quantity, 0);
+    // });
     this.loadCategories(); // Fetch categories on initialization
   }
 
@@ -53,5 +53,6 @@ export class HeaderComponent implements OnInit {
 
   logout(): void {
     this.authService.logout();
+    // this.cartCount = 0;
   }
 }
