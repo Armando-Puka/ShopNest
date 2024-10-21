@@ -1,11 +1,12 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 import { Product } from '../product.model';
 import { BehaviorSubject } from 'rxjs';
+import { CartService } from './cart.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ProductService {
+export class ProductService   {
   private productsKey = 'products';
 
   // Observable to track the list of products
@@ -13,6 +14,8 @@ export class ProductService {
   products$ = this.productsSubject.asObservable();
 
   constructor() {}
+
+  
 
   // Get all products from localStorage
   getProducts(): Product[] {

@@ -1,18 +1,22 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
 import { CartItem } from '../cart-item.model';
+import { ProductService } from './product.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class CartService {
+export class CartService   {
   private cartKey = 'cart';
+
+  
 
   private cartSubject = new BehaviorSubject<CartItem[]>(this.getCartItems());
   cart$ = this.cartSubject.asObservable();
 
   constructor(private router: Router) { }
+
 
   private getCartItems(): CartItem[] {
     const cart = localStorage.getItem(this.cartKey);

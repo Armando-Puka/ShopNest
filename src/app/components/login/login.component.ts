@@ -17,9 +17,9 @@ export class LoginComponent {
   // password: string = '';
   loginError: boolean = false;
 
-  loginForm = new FormGroup({
-    username: new FormControl(null, [Validators.required || Validators.email]),
-    password: new FormControl(null, Validators.required)
+  loginForm: FormGroup = new FormGroup({
+    'username': new FormControl(null, [Validators.required || Validators.email]),
+    'password': new FormControl(null, Validators.required)
   });
 
   constructor(private authService: AuthService, private router: Router) {}
@@ -30,7 +30,7 @@ export class LoginComponent {
       return;
     }
 
-    const loginSuccess = this.authService.login(this.loginForm.value.username ?? '', this.loginForm.value.password ?? '');
+    const loginSuccess = this.authService.login(this.loginForm.controls['username'].value, this.loginForm.controls['password'].value);
 
     if (loginSuccess) {
       console.log('Login successful!');
