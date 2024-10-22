@@ -47,3 +47,7 @@ button.btn {
 .category-link:hover {
   text-decoration: underline;
 }
+
+.active{
+  font-weight: bold;
+}
