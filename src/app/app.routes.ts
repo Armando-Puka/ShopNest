@@ -8,13 +8,16 @@ import { AddProductComponent } from './components/add-product/add-product.compon
 import { HomeComponent } from './components/home/home.component';
 import { ProductDetailsComponent } from './components/product-details/product-details.component';
 import { CartComponent } from './components/cart/cart.component';
+import { ProductListComponent } from './components/product-list/product-list.component';
 
 export const routes: Routes = [
     { path: '', component: HomeComponent },
     { path: 'login', component: LoginComponent, canActivate: [AuthGuard] },
     { path: 'signup', component: SignupComponent, canActivate: [AuthGuard] },
     { path: 'admin/categories', component: AdminCategoryComponent, canActivate: [AdminAuthGuard], data: { roles: ['admin'] }},
-    { path: 'admin/products', component: AddProductComponent, canActivate: [AdminAuthGuard], data: { roles: ['admin'] }},
+    { path: 'admin/products', component: ProductListComponent, canActivate: [AdminAuthGuard], data: { roles: ['admin'] }},
+    { path: 'admin/products/new', component: AddProductComponent, canActivate: [AdminAuthGuard], data: { roles: ['admin'] }},
+    { path: 'admin/products/:id', component: AddProductComponent, canActivate: [AdminAuthGuard], data: { roles: ['admin'] }},
     { path: 'product/:id', component: ProductDetailsComponent },
     { path: 'cart', component: CartComponent, canActivate: [GeneralGuard] },
     // { path: 'admin-access', component: AdminAccessComponent},

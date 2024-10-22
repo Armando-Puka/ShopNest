@@ -38,6 +38,9 @@
                     <a [routerLink]="['admin/categories']" href="" class="nav-link">Manage Categories</a>
                 </li>
                 <li *ngIf="currentUser()?.role === 'admin'">
+                    <a [routerLink]="['admin/products/new']" href="" class="nav-link">Add Products</a>
+                </li>
+                <li *ngIf="currentUser()?.role === 'admin'">
                     <a [routerLink]="['admin/products']" href="" class="nav-link">Manage Products</a>
                 </li>
             </ul>

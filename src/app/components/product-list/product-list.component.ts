@@ -1,26 +1,40 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductService } from '../../services/product.service';
 import { Product } from '../../product.model';
-import { FormsModule } from '@angular/forms';
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Category } from '../../category.model';
 import { AdminCategoryService } from '../../services/admin-category.service';
+import { Router, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-product-list',
   standalone: true,
-  imports: [FormsModule, CommonModule],
+  imports: [ReactiveFormsModule, RouterModule, CommonModule],
   templateUrl: './product-list.component.html',
   styleUrl: './product-list.component.css'
 })
 export class ProductListComponent implements OnInit {
   products: Product[] = [];
   categories: Category[] = [];
-  editingProduct: Product | null = null;
+  
+  constructor(private productService: ProductService, private router: Router, private adminCategoryService: AdminCategoryService) {}
 
-  constructor(private productService: ProductService, private adminCategoryService: AdminCategoryService) {}
+  productListForm: FormGroup = new FormGroup({
+    name: new FormControl(null, Validators.required),
+    description: new FormControl(null, Validators.required),
+    price: new FormControl(null, Validators.required),
+    imageUrl: new FormControl(null, Validators.required),
+    category: new FormControl(null, Validators.required),
+    stockQuantity: new FormControl(null, Validators.required),
+  });
 
   ngOnInit(): void {
+    this.loadProducts();
+    this.loadCategories();
+  }
+
+  loadProducts(): void {
     this.productService.products$.subscribe((products) => {
       this.products = products;
     });
@@ -35,28 +49,7 @@ export class ProductListComponent implements OnInit {
     this.products = this.productService.getProducts();
   }
 
-  // Start editing the product
   editProduct(product: Product): void {
-    this.editingProduct = { ...product };
-    this.loadCategories();
-  }
-
-  // Save the edited product
-  saveProduct(productForm: any): void {
-    if (productForm.invalid) {
-      return;
-    }
-
-    if (this.editingProduct) {
-      this.editingProduct.updatedAt = new Date();
-      this.productService.updateProduct(this.editingProduct);
-      this.editingProduct = null;
-      this.products = this.productService.getProducts();
-    }
-  }
-
-  // Cancel editing
-  cancelEditing(): void {
-    this.editingProduct = null;
+    this.router.navigate(['/admin/products', product.id]);
   }
 }
