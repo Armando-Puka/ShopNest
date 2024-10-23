@@ -1,0 +1,34 @@
+::ng-deep {
+    ol, ul {
+        padding-left: 0 !important;
+        margin-bottom: 0 !important;
+    }
+
+    .custom-border {
+        input, input {
+            width: 100%;
+            // border: 2px solid black !important;
+        }
+    }
+
+    .p-password, input {
+        width: 100%;
+    }
+}
+
+.label-block {
+    display: block;
+}
+
+input {
+    width: 100%;
+    // border: 2px solid black !important;
+}
+
+// .full-width {
+//     width: 100%;
+// }
+
+.max-error-height {
+    max-height: 0rem;
+}
