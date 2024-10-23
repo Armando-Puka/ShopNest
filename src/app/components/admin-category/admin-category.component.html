@@ -1,37 +1,84 @@
-<div class="container">
+<div
+    class="container d-flex flex-column justify-content-center align-items-center"
+>
     <h2>Manage Categories</h2>
 
     <!-- Form to Add/Edit Categories -->
-    <form [formGroup]="categoriesForm" (ngSubmit)="isEditing ? updateCategory() : addCategory()">
+    <form
+        [formGroup]="categoriesForm"
+        class="d-flex flex-column mt-3 mb-3"
+        (ngSubmit)="isEditing ? updateCategory() : addCategory()"
+    >
         <div class="mb-3">
-            <label for="categoryName" class="form-label">Category Name</label>
-            <input type="text" class="form-control" id="categoryName" formControlName="categoryName" name="categoryName" placeholder="Enter category name" required>
+            <input
+                pInputText
+                type="text"
+                class="form-control"
+                id="categoryName"
+                formControlName="categoryName"
+                name="categoryName"
+                placeholder="Enter category name"
+            />
 
             <!-- Category Name Error Message -->
-            <div *ngIf="categoriesForm.get('categoryName')?.invalid && (categoriesForm.get('categoryName')?.dirty || categoriesForm.get('categoryName')?.touched)" class="text-danger">
-                <div *ngIf="categoriesForm.get('categoryName')?.errors?.['required']">Category name is required.</div>
+            <div
+                *ngIf="
+                    categoriesForm.get('categoryName')?.invalid &&
+                    (categoriesForm.get('categoryName')?.dirty ||
+                        categoriesForm.get('categoryName')?.touched)
+                "
+                class="text-danger"
+            >
+                <div
+                    *ngIf="categoriesForm.get('categoryName')?.errors?.['required']"
+                >
+                    Category name is required.
+                </div>
             </div>
         </div>
 
         <div class="mb-3">
-            <label for="categoryDescription">Category Description</label>
-            <textarea name="categoryDescription" id="categoryDescription" formControlName="categoryDescription" class="form-control" placeholder="Enter category description"></textarea>
+            <textarea
+                pInputTextarea
+                name="categoryDescription"
+                id="categoryDescription"
+                formControlName="categoryDescription"
+                placeholder="Enter category description"
+            ></textarea>
         </div>
 
         <button type="submit" class="btn btn-primary">
-            {{ isEditing ? 'Update Category' : 'Add Category' }}
+            {{ isEditing ? "Update Category" : "Add Category" }}
         </button>
 
-        <button type="button" class="btn btn-secondary" (click)="resetForm()" *ngIf="isEditing">Cancel</button>
+        <button
+            type="button"
+            class="btn btn-secondary mt-2"
+            (click)="resetForm()"
+            *ngIf="isEditing"
+        >
+            Cancel
+        </button>
     </form>
 
     <!-- Category List -->
-    <h3 class="mt-5">Category List</h3>
-    <ul class="list-group">
+    <h3 class="mt-2 mb-4">Category List</h3>
+    <ul class="list-group mb-5">
         <li class="list-group-item" *ngFor="let category of categories">
-            <strong>{{ category.name }}</strong> - {{ category.description || 'No description' }}
-            <button class="btn btn-sm btn-primary ms-2" (click)="editCategory(category)">Edit</button>
-            <button class="btn btn-sm btn-danger ms-2" (click)="deleteCategory(category.id)">Delete</button>
+            <strong>{{ category.name }}</strong> -
+            {{ category.description || "No description" }}
+            <button
+                class="btn btn-sm btn-primary ms-2"
+                (click)="editCategory(category)"
+            >
+                Edit
+            </button>
+            <button
+                class="btn btn-sm btn-danger ms-2"
+                (click)="deleteCategory(category.id)"
+            >
+                Delete
+            </button>
         </li>
     </ul>
 </div>
