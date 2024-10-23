@@ -1,20 +1,17 @@
-<div class="container d-flex flex-column justify-content-center align-items-center">
+<div class="container d-flex flex-column justify-content-center align-items-center mt-4">
     <h2>Sign Up</h2>
 
-    <form [formGroup]="signupForm" class="d-flex flex-column" (ngSubmit)="onSignUp()">
-        <div class="d-flex justify-content-between full-width gap-4 flex-wrap align-items-center mt-4">
+    <form [formGroup]="signupForm" class="d-flex flex-column mt-3 mb-3" (ngSubmit)="onSignUp()">
             <div>
                 <!-- Name -->
-                <p-floatLabel>
                     <input
                         pInputText
                         type="text"
                         id="name"
                         formControlName="name"
                         name="name"
+                        placeholder="First Name"
                     />
-                    <!-- <label for="name">Name</label> -->
-                </p-floatLabel>
 
                 <!-- Name Error Messages -->
                 <div
@@ -23,7 +20,7 @@
                         (signupForm.controls['name']?.dirty ||
                             signupForm.controls['name']?.touched)
                     "
-                    class="text-danger max-error-height"
+                    class="text-danger"
                 >
                     <div
                         *ngIf="signupForm.controls['name']?.errors?.['required']"
@@ -50,17 +47,15 @@
             </div>
 
             <!-- Last Name -->
-            <div>
-                <p-floatLabel>
+            <div class="mt-3">
                     <input
                         pInputText
                         type="text"
                         id="lastName"
                         formControlName="lastName"
                         name="lastName"
+                        placeholder="Last Name"
                     />
-                    <label for="lastName" class="label-block">Last Name</label>
-                </p-floatLabel>
 
                 <!-- Last Name Error Messages -->
                 <div
@@ -69,7 +64,7 @@
                         (signupForm.controls['lastName']?.dirty ||
                             signupForm.controls['lastName']?.touched)
                     "
-                    class="text-danger max-error-height"
+                    class="text-danger"
                 >
                     <div
                         *ngIf="signupForm.controls['lastName']?.errors?.['required']"
@@ -94,11 +89,9 @@
                     </div>
                 </div>
             </div>
-        </div>
 
         <!-- Username -->
-        <div class="mt-5">
-            <p-floatLabel>
+        <div class="mt-3">
                 <input
                     pInputText
                     type="text"
@@ -110,9 +103,8 @@
                         'ng-invalid': usernameExists,
                         'ng-touched': signupForm.controls['username'].touched
                     }"
+                    placeholder="Username"
                 />
-                <label for="username" class="label-block">Username</label>
-            </p-floatLabel>
 
             <!-- Username Error Messages -->
             <div
@@ -144,14 +136,13 @@
                     Username can only contain letters, numbers, and underscores.
                 </div>
             </div>
-            <div *ngIf="usernameExists" class="text-danger max-error-height">
+            <div *ngIf="usernameExists" class="text-danger">
                 This username is already registered.
             </div>
         </div>
 
         <!-- Email -->
-        <div class="mt-5">
-            <p-floatLabel>
+        <div class="mt-3">
                 <input
                     pInputText
                     type="email"
@@ -163,9 +154,8 @@
                         'ng-invalid': emailExists,
                         'ng-touched': signupForm.controls['email'].touched
                     }"
+                    placeholder="Email"
                 />
-                <label for="email" class="label-block">Email</label>
-            </p-floatLabel>
 
             <!-- Email Error Messages -->
             <div
@@ -188,23 +178,21 @@
                     Email must be less than 50 characters.
                 </div>
             </div>
-            <div *ngIf="emailExists" class="text-danger max-error-height">
+            <div *ngIf="emailExists" class="text-danger">
                 This email is already registered.
             </div>
         </div>
 
         <!-- Address -->
-        <div class="mt-5">
-            <p-floatLabel>
+        <div class="mt-3">
                 <input
                     pInputText
                     type="text"
                     id="address"
                     formControlName="address"
                     name="address"
+                    placeholder="Address"
                 />
-                <label for="address" class="label-block">Address</label>
-            </p-floatLabel>
 
             <!-- Address Error Messages -->
             <div
@@ -233,26 +221,22 @@
             </div>
         </div>
 
-        <div class="d-flex justify-content-between">
+        <div class="d-flex justify-content-between gap-5">
             <!-- Birthday -->
-            <div class="mt-5">
+            <div class="mt-4">
                 <p-floatLabel>
                     <p-calendar
                         [showIcon]="true"
                         [showOnFocus]="false"
-                        class="custom-border"
                         inputId="birthday"
                         formControlName="birthday"
                         (ngModelChange)="validateAge()"
                         [ngClass]="{
-                            'is-invalid':
-                                signupForm.controls['birthday'].invalid &&
-                                (signupForm.controls['birthday'].dirty ||
-                                    signupForm.controls['birthday'].touched),
-                            'w-full': true
+                            'is-invalid': signupForm.controls['birthday'].invalid && 
+                                           (signupForm.controls['birthday'].dirty || signupForm.controls['birthday'].touched)
                         }"
                     />
-                    <label for="birthday" class="label-block">Birthday</label>
+                    <label for="birthday">Birthday</label>
                 </p-floatLabel>
     
                 <div
@@ -261,7 +245,7 @@
                         (signupForm.controls['birthday']?.dirty ||
                             signupForm.controls['birthday']?.touched)
                     "
-                    class="text-danger max-error-height"
+                    class="text-danger"
                 >
                     <div
                         *ngIf="signupForm.controls['birthday']?.errors?.['required']"
@@ -277,16 +261,19 @@
             </div>
     
             <!-- Gender -->
-            <div class="mt-5">
+            <div class="mt-4">
                 <p-floatLabel>
                     <p-dropdown
                         [options]="genderOptions"
-                        class="custom-border"
                         inputId="gender"
                         formControlName="gender"
                         name="gender"
+                        [ngClass]="{
+                            'is-invalid': signupForm.controls['gender'].invalid && 
+                                           (signupForm.controls['gender'].dirty || signupForm.controls['gender'].touched)
+                        }"
                     ></p-dropdown>
-                    <label for="gender" class="label-block">Gender</label>
+                    <label for="gender">Gender</label>
                 </p-floatLabel>
     
                 <!-- Gender Error Messages -->
@@ -296,7 +283,7 @@
                         (signupForm.controls['gender']?.dirty ||
                             signupForm.controls['gender']?.touched)
                     "
-                    class="text-danger max-error-height"
+                    class="text-danger"
                 >
                     <div
                         *ngIf="signupForm.controls['gender']?.errors?.['required']"
@@ -309,17 +296,19 @@
 
 
         <!-- Password -->
-        <div class="mt-5">
-            <p-floatLabel>
+        <div class="mt-3">
                 <p-password
                     type="password"
                     inputId="password"
                     formControlName="password"
                     name="password"
                     [toggleMask]="true"
+                    placeholder="Password"
+                    [ngClass]="{
+                        'is-invalid': signupForm.controls['password'].invalid && 
+                                       (signupForm.controls['password'].dirty || signupForm.controls['password'].touched)
+                    }"
                 />
-                <label for="password" class="label-block">Password</label>
-            </p-floatLabel>
 
             <!-- Password Error Messages -->
             <div
@@ -355,8 +344,7 @@
         </div>
 
         <!-- Confirm Password -->
-        <div class="mt-5 mb-3">
-            <p-floatLabel>
+        <div class="mt-3 mb-3">
                 <p-password
                     type="password"
                     inputId="confirmPassword"
@@ -370,11 +358,8 @@
                             (signupForm.controls['confirmPassword'].dirty ||
                                 signupForm.controls['confirmPassword'].touched)
                     }"
+                    placeholder="Confirm Password"
                 />
-                <label for="confirmPassword" class="label-block label-block"
-                    >Confirm Password</label
-                >
-            </p-floatLabel>
 
             <!-- Confirm Password Error Messages -->
             <div
@@ -408,12 +393,12 @@
 
         <button
             type="submit"
-            class="btn btn-primary mt-3"
+            class="btn btn-primary"
         >
             Sign Up
         </button>
 
-        <div class="mt-1 mb-4">
+        <div class="mt-2 mb-3">
             <span
                 >Already have an account?
                 <a [routerLink]="['/login']">Login</a></span

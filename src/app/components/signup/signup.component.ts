@@ -17,16 +17,6 @@ import { PasswordModule } from 'primeng/password';
   styleUrls: ['./signup.component.css', './signup.component.scss']
 })
 export class SignupComponent implements OnInit {
-  // name: string = '';
-  // lastName: string = '';
-  // username: string = '';
-  // email: string = '';
-  // address: string = '';
-  // birthday = Date;
-  // gender: string = '';
-  // password: string = '';
-  // confirmPassword: string = '';
-
   emailExists: boolean = false;
   usernameExists: boolean = false;
   genderOptions?: { label: string; value: string;}[];
@@ -72,9 +62,6 @@ export class SignupComponent implements OnInit {
     if (monthDiff < 0 || (monthDiff === 0 && dayDiff < 0)) {
       age--;
     }
-
-    // Find the birthday input field and cast it to HTMLInputElement
-    // const birthdayField = document.getElementById('birthday') as HTMLInputElement;
 
     if (age < 18) {
       this.signupForm.controls['birthday'].setErrors({ invalidAge: true });
@@ -171,19 +158,8 @@ export class SignupComponent implements OnInit {
     this.emailExists = false;
   }
 
+  // Clear usernameExists error on input change
   onUsernameChange(): void {
     this.usernameExists = false;
   }
-
-  // private clearFields(): void {
-  //   this.name = '';
-  //   this.lastName = '';
-  //   this.username = '';
-  //   this.email = '';
-  //   this.address = '';
-  //   this.birthday = '';
-  //   this.gender = '';
-  //   this.password = '';
-  //   this.confirmPassword = '';
-  // }
 }

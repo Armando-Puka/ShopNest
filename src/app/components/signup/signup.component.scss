@@ -4,31 +4,15 @@
         margin-bottom: 0 !important;
     }
 
-    .custom-border {
-        input, input {
-            width: 100%;
-            // border: 2px solid black !important;
-        }
-    }
-
     .p-password, input {
         width: 100%;
     }
-}
 
-.label-block {
-    display: block;
-}
+    .is-invalid .p-inputtext {
+        border: 1px solid red !important;
+    }
 
-input {
-    width: 100%;
-    // border: 2px solid black !important;
-}
-
-// .full-width {
-//     width: 100%;
-// }
-
-.max-error-height {
-    max-height: 0rem;
+    .is-invalid .p-dropdown {
+        border: 1px solid red !important;
+    }
 }
