@@ -1,56 +1,36 @@
-<header class="navbar navbar-expand-lg navbar-light bg-light">
-    <div class="container-fluid">
-        <a href="#" class="navbar-brand">ShopNest</a>
+<header class="navbar navbar-expand-lg navbar-light bg-light row p-lr-20">
+    <div class="header-styling col-xs-12">
+        <div class="header-styling">
 
-        <!-- Search Bar -->
-        <form class="d-flex mx-auto" role="search" (ngSubmit)="onSearch()">
-            <input type="search" class="form-control me-2" placeholder="Search products..." aria-label="Search" [(ngModel)]="searchTerm" name="searchTerm" required>
-            <button class="btn btn-outline-success" type="submit">Search</button>
-        </form>
-
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+            <div>
+                <a href="#" class="navbar-brand">ShopNest</a>
+            </div>
+    
+            <div>
+                <form [formGroup]="formGroup">
+                    <p-autoComplete
+                        formControlName="selectedProduct"
+                        [suggestions]="filteredProductes"
+                        (completeMethod)="filterProduct($event)"
+                        optionLabel="name" />
+                </form>
+                
+            </div>
+        </div>
+        
+        
+        <p-menubar [model]="items" />
 
         <div class="collapse navbar-collapse" id="navbarNav">
-            
-            <ul class="navbar-nav ms-auto">
-                <!-- <li class="nav-item">
-                    <a href="#" [routerLink]="['/']" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" class="nav-link">Home</a>
-                </li>
-               
-                <li class="nav-item">
-                    <a href="#" [routerLink]="['/account']" routerLinkActive="active" class="nav-link">My Account</a>
-                </li>
-                <li class="nav-item" *ngIf="currentUser()">
-                </li> -->
-                
-                
-                <li>
-
-                    <p-menubar [model]="items" />
-                </li>
-               
-                <!-- <li *ngIf="currentUser()?.role === 'admin'">
-                    <a href="#" [routerLink]="['admin/categories']" routerLinkActive="active" class="nav-link">Manage Categories</a>
-                </li>
-                <li *ngIf="currentUser()?.role === 'admin'">
-                    <a href="#" [routerLink]="['admin/products/new']" routerLinkActive="active" class="nav-link">Add Products</a>
-                </li>
-                <li *ngIf="currentUser()?.role === 'admin'">
-                    <a href="#" [routerLink]="['admin/products']" routerLinkActive="active" [routerLinkActiveOptions]="{ exact:true }" class="nav-link">Manage Products</a>
-                </li> -->
-            </ul>
 
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                
-                
                 <li class="nav-item" *ngIf="currentUser()?.username">
                     <!-- <a class="nav-link" href="">Welcome, {{ currentUser()?.username }}</a> -->
-                    
                 </li>
                 <li class="nav-item" *ngIf="currentUser()">
-                    <button class="btn btn-outline-danger" (click)="logout()">Logout</button>
+                    <button class="btn btn-outline-danger" (click)="logout()">
+                        Logout
+                    </button>
                 </li>
                 <li class="nav-item" *ngIf="!currentUser()">
                     <a class="nav-link" [routerLink]="['/login']">Login</a>
@@ -59,8 +39,6 @@
                     <a class="nav-link" [routerLink]="['/signup']">Sign Up</a>
                 </li>
             </ul>
-
-            
         </div>
     </div>
 </header>
@@ -72,7 +50,12 @@
             <div class="col">
                 <ul class="list-unstyled">
                     <li *ngFor="let category of categories">
-                        <a href="" [routerLink]="['/category', category.id]" class="category-link">{{ category.name }}</a>
+                        <a
+                            href=""
+                            [routerLink]="['/category', category.id]"
+                            class="category-link"
+                            >{{ category.name }}</a
+                        >
                     </li>
                 </ul>
             </div>

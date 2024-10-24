@@ -7,18 +7,16 @@ import { Router } from '@angular/router';
 import { CartService } from '../../services/cart.service';
 import { AuthService } from '../../services/auth.service';
 import { CartItem } from '../../cart-item.model';
-import { ButtonModule } from 'primeng/button';
-import { SidebarModule } from 'primeng/sidebar';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [FormsModule, CommonModule, ButtonModule, SidebarModule],
+  imports: [FormsModule, CommonModule],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
 export class HomeComponent implements OnInit {
-  sidebarVisible: boolean = false;
+  // sidebarVisible: boolean = false;
   products: Product[] = [];
 
   constructor(private productService: ProductService,private authService: AuthService, private cartService: CartService, private router: Router) {}

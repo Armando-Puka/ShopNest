@@ -56,6 +56,7 @@
                     inputId="category"
                     formControlName="category"
                     name="category"
+                    [filter]="true"
                     [ngClass]="{
                         'is-invalid':
                         productForm.controls['category'].invalid && 
