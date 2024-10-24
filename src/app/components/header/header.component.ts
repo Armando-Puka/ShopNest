@@ -1,34 +1,104 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit, computed } from '@angular/core';
+import { Component, DestroyRef, OnInit, computed, effect, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { Category } from '../../category.model';
 import { AdminCategoryService } from '../../services/admin-category.service';
-import { CartService } from '../../services/cart.service';
+import { MenubarModule } from 'primeng/menubar';
+import { MenuItem } from 'primeng/api';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [FormsModule, CommonModule, RouterModule],
+  imports: [FormsModule, CommonModule, RouterModule, MenubarModule],
   templateUrl: './header.component.html',
-  styleUrl: './header.component.css'
+  styleUrl: './header.component.scss',
 })
 export class HeaderComponent implements OnInit {
+  private destroyRef = inject(DestroyRef);
+  items: MenuItem[] | undefined;
+
   searchTerm: string = '';
-  currentUser = computed(() => this.authService.getCurrentUser()); // Get the reactive signal for current user
   categories: Category[] = [];
   dropdownVisible: boolean = false;
   cartCount = computed(() => this.authService.getCartCountSignal()());
+  public currentUser = this.authService.currentUser;
 
-  constructor(private router: Router, private authService: AuthService, private categoryService: AdminCategoryService, private cartService: CartService) {}
+  private baseMenuItems: MenuItem[] = [
+    {
+      // routerLinkActiveOptions: {exact:true},
+      label: 'Home',
+      icon: 'pi pi-home',
+      routerLink: '/',
+    },
+    {
+      label: 'Categories',
+      icon: 'pi pi-star',
+      items: this.categories.map((c) => ({ label: c.name })),
+    },
+  ];
 
-  ngOnInit(): void {
-    // Subscribe to card updates and update cart count
-    // this.cartService.cart$.subscribe((cartItems) => {
-    //   this.cartCount = cartItems.reduce((total, item) => total + item.quantity, 0);
-    // });
-    this.loadCategories(); // Fetch categories on initialization
+  constructor(
+    private router: Router,
+    private authService: AuthService,
+    private categoryService: AdminCategoryService
+  ) {}
+
+  ngOnInit() {
+    this.loadCategories();
+    this.loadHeader();
+    
+    this.authService.onLogin
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(() => {
+        this.loadHeader();
+      });
+  }
+
+  loadHeader(): void {
+    this.items = structuredClone(this.baseMenuItems);
+
+    if (!this.authService.isLoggedIn()) return;
+
+    this.items?.push(
+      {
+        label: 'My Account',
+        icon: 'pi pi-user',
+        routerLink: '/account',
+      },
+      {
+        label: 'Cart',
+        icon: 'pi pi-shopping-cart',
+        routerLink: '/cart',
+        badge: this.cartCount(),
+      }
+    );
+
+    if (this.authService.currentUser()?.role === 'admin') {
+      this.items?.push({
+        label: this.authService.currentUser()?.username,
+        icon: 'pi pi-user',
+        items: [
+          {
+            label: 'Manage Products',
+            icon: 'pi pi-bolt',
+            routerLink: 'admin/products',
+          },
+          {
+            label: 'Manage Categories',
+            icon: 'pi pi-server',
+            routerLink: 'admin/categories',
+          },
+          {
+            label: 'Add Products',
+            icon: 'pi pi-pencil',
+            routerLink: 'admin/products/new',
+          },
+        ],
+      });
+    }
   }
 
   // Fetch categories from the service
@@ -53,6 +123,12 @@ export class HeaderComponent implements OnInit {
 
   logout(): void {
     this.authService.logout();
+    this.authService.onLogout
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(() => {
+        this.items = this.baseMenuItems;
+      });
+    // this.ngOnInit();
     // this.cartCount = 0;
   }
 }

@@ -13,24 +13,25 @@
         </button>
 
         <div class="collapse navbar-collapse" id="navbarNav">
+            
             <ul class="navbar-nav ms-auto">
-                <li class="nav-item">
+                <!-- <li class="nav-item">
                     <a href="#" [routerLink]="['/']" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" class="nav-link">Home</a>
                 </li>
-                <li class="nav-item">
-                    <!-- Dropdown Button for Categories -->
-                    <a href="#" class="nav-link" (click)="toggleDropdown()">Categories</a>
-                </li>
+               
                 <li class="nav-item">
                     <a href="#" [routerLink]="['/account']" routerLinkActive="active" class="nav-link">My Account</a>
                 </li>
                 <li class="nav-item" *ngIf="currentUser()">
-                    <a [routerLink]="['/cart']" routerLinkActive="active" class="nav-link">
-                        Cart
-                        <span class="badge bg-danger">{{ cartCount() }}</span>
-                    </a>
+                </li> -->
+                
+                
+                <li>
+
+                    <p-menubar [model]="items" />
                 </li>
-                <li *ngIf="currentUser()?.role === 'admin'">
+               
+                <!-- <li *ngIf="currentUser()?.role === 'admin'">
                     <a href="#" [routerLink]="['admin/categories']" routerLinkActive="active" class="nav-link">Manage Categories</a>
                 </li>
                 <li *ngIf="currentUser()?.role === 'admin'">
@@ -38,12 +39,15 @@
                 </li>
                 <li *ngIf="currentUser()?.role === 'admin'">
                     <a href="#" [routerLink]="['admin/products']" routerLinkActive="active" [routerLinkActiveOptions]="{ exact:true }" class="nav-link">Manage Products</a>
-                </li>
+                </li> -->
             </ul>
 
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                
+                
                 <li class="nav-item" *ngIf="currentUser()?.username">
-                    <a class="nav-link" href="">Welcome, {{ currentUser()?.username }}</a>
+                    <!-- <a class="nav-link" href="">Welcome, {{ currentUser()?.username }}</a> -->
+                    
                 </li>
                 <li class="nav-item" *ngIf="currentUser()">
                     <button class="btn btn-outline-danger" (click)="logout()">Logout</button>
