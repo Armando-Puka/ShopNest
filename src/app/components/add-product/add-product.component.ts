@@ -7,11 +7,14 @@ import { Category } from '../../category.model';
 import { AdminCategoryService } from '../../services/admin-category.service';
 import { ProductListComponent } from "../product-list/product-list.component";
 import { ActivatedRoute, Router } from '@angular/router';
+import { InputTextModule } from 'primeng/inputtext';
+import { InputNumberModule } from 'primeng/inputnumber';
+import { InputTextareaModule } from 'primeng/inputtextarea';
 
 @Component({
   selector: 'app-add-product',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule, ProductListComponent],
+  imports: [ReactiveFormsModule, CommonModule, ProductListComponent, InputTextModule, InputNumberModule, InputTextareaModule],
   templateUrl: './add-product.component.html',
   styleUrl: './add-product.component.css'
 })

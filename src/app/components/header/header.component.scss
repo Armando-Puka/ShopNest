@@ -51,3 +51,38 @@ button.btn {
 .active{
   font-weight: bold;
 }
+
+
+::ng-deep {
+  .p-menubar {
+  margin: 0 20px !important;
+  padding: 0 !important;
+  border: none !important;
+
+  ol, ul {
+    padding-left: 0 !important;
+    margin-bottom: 0 !important;
+  }
+}
+
+.p-menuitem-link {
+  color: black !important;
+  text-decoration: none !important;
+} 
+
+.p-menuitem-badge{
+  padding: 2px  8px;
+  background-color: rgb(220 53 69);
+  border-radius: 8px;
+  color: white;
+  
+  margin-left: 8px;
+}
+}
+
+
+.flex-header{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

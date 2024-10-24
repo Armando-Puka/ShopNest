@@ -35,6 +35,7 @@ export class LoginComponent {
     if (loginSuccess) {
       console.log('Login successful!');
       this.loginError = false;
+      this.authService.onLogin.emit();
       this.router.navigate(['/']);
     } else {
       console.error('Login failed. Invalid username or password');
