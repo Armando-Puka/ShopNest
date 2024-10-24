@@ -1,0 +1,29 @@
+::ng-deep {
+    form {
+        width: 50%;
+    }
+
+    input {
+        width: 100%;
+    }
+
+    textarea {
+        width: 100%;
+    }
+
+    .p-inputnumber, input {
+        width: 100%;
+    }
+
+    .is-invalid .p-inputtext {
+        border: 1px solid red !important;
+    }
+
+    .is-invalid .p-inputnumber > .p-inputtext {
+        border: 1px solid red !important;
+    }
+
+    .is-invalid .p-dropdown {
+        border: 1px solid red !important;
+    }
+}

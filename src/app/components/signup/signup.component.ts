@@ -19,7 +19,7 @@ import { PasswordModule } from 'primeng/password';
 export class SignupComponent implements OnInit {
   emailExists: boolean = false;
   usernameExists: boolean = false;
-  genderOptions?: { label: string; value: string;}[];
+  genderOptions?: { label: string; value: string; }[];
 
   constructor(private router: Router) {}
 
