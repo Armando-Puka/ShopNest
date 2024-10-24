@@ -4,17 +4,17 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { Router, RouterModule } from '@angular/router';
 
 import { AuthService } from '../../services/auth.service';
+import { InputTextModule } from 'primeng/inputtext';
+import { PasswordModule } from 'primeng/password';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule, RouterModule],
+  imports: [ReactiveFormsModule, CommonModule, RouterModule, InputTextModule, PasswordModule],
   templateUrl: './login.component.html',
-  styleUrl: './login.component.css'
+  styleUrls: ['./login.component.css', './login.component.scss']
 })
 export class LoginComponent {
-  // username: string = '';
-  // password: string = '';
   loginError: boolean = false;
 
   loginForm: FormGroup = new FormGroup({
@@ -25,8 +25,12 @@ export class LoginComponent {
   constructor(private authService: AuthService, private router: Router) {}
 
   onLogin(): void {
-    if (!this.loginForm.valid) {
-      console.error('Please fill in all fields.');
+    if (this.loginForm.invalid) {
+      Object.keys(this.loginForm.controls).forEach(controlName => {
+        this.loginForm.controls[controlName].markAllAsTouched();
+        this.loginForm.controls[controlName].markAsDirty();
+      });
+
       return;
     }
 

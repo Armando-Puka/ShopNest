@@ -1,26 +1,70 @@
-<div class="container">
+<div
+    class="container d-flex flex-column justify-content-center align-items-center mt-4"
+>
     <h2>Login</h2>
 
-    <form [formGroup]="loginForm" (ngSubmit)="onLogin()" chan novalidate>
+    <form
+        [formGroup]="loginForm"
+        class="d-flex flex-column mt-3 mb-3"
+        (ngSubmit)="onLogin()"
+        novalidate
+    >
         <!-- Username or Email -->
         <div class="mb-3">
-            <label for="username" class="form-label">Username or Email</label>
-            <input type="text" class="form-control" id="username" formControlName="username" name="username" required>
+            <input
+                pInputText
+                type="text"
+                id="username"
+                formControlName="username"
+                name="username"
+                placeholder="Username or Email"
+            />
 
             <!-- Username/Email Error Messages -->
-            <div *ngIf="loginForm.get('username')?.invalid && (loginForm.get('username')?.dirty || loginForm.get('username')?.touched)" class="text-danger">
-                <div *ngIf="loginForm.get('username')?.errors?.['required']">Username or Email is required.</div>
+            <div
+                *ngIf="
+                    loginForm.get('username')?.invalid &&
+                    (loginForm.get('username')?.dirty ||
+                        loginForm.get('username')?.touched)
+                "
+                class="text-danger"
+            >
+                <div *ngIf="loginForm.get('username')?.errors?.['required']">
+                    Username or Email is required.
+                </div>
             </div>
         </div>
 
         <!-- Password -->
         <div class="mb-3">
-            <label for="password" class="form-label">Password</label>
-            <input type="password" class="form-control" id="password" formControlName="password" name="password" required>
+            <p-password
+                type="password"
+                inputId="password"
+                formControlName="password"
+                name="password"
+                [toggleMask]="true"
+                feedback="false"
+                placeholder="Password"
+                [ngClass]="{
+                    'is-invalid':
+                        loginForm.controls['password'].invalid &&
+                        (loginForm.controls['password'].dirty ||
+                            loginForm.controls['password'].touched)
+                }"
+            />
 
             <!-- Password Error Messages -->
-            <div *ngIf="loginForm.get('password')?.invalid && (loginForm.get('password')?.dirty || loginForm.get('password')?.touched)" class="text-danger">
-                <div *ngIf="loginForm.get('password')?.errors?.['required']">Password is required.</div>
+            <div
+                *ngIf="
+                    loginForm.get('password')?.invalid &&
+                    (loginForm.get('password')?.dirty ||
+                        loginForm.get('password')?.touched)
+                "
+                class="text-danger"
+            >
+                <div *ngIf="loginForm.get('password')?.errors?.['required']">
+                    Password is required.
+                </div>
             </div>
 
             <!-- Login Error Message -->
@@ -29,12 +73,13 @@
             </div>
         </div>
 
-        
+        <button type="submit" class="btn btn-primary">Login</button>
 
-        <button type="submit" class="btn btn-primary" [disabled]="!loginForm.valid">Login</button>
-
-        <div class="mt-3">
-            <span>Don't have an account? <a [routerLink]="['/signup']">Sign Up</a></span>
+        <div class="mt-2">
+            <span
+                >Don't have an account?
+                <a [routerLink]="['/signup']">Sign Up</a></span
+            >
         </div>
     </form>
 </div>

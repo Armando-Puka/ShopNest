@@ -1,37 +1,39 @@
-<div class="contanier mt-5">
+<div class="contanier d-flex flex-column justify-content-center align-items-center table-responsive-sm mt-4">
     <h2>Product List</h2>
 
-    <table class="table table-bordered table-striped">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Product Name</th>
-                <th>Description</th>
-                <th>Price</th>
-                <th>Category</th>
-                <th>Stock</th>
-                <th>Created At</th>
-                <th>Updated At</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let product of products">
-                <td>{{ product.id }}</td>
-                <td>{{ product.name }}</td>
-                <td>{{ product.description }}</td>
-                <td>{{ product.price }}</td>
-                <td>{{ product.category }}</td>
-                <td>{{ product.stockQuantity }}</td>
-                <td>{{ product.createdAt | date }}</td>
-                <td>{{ product.updatedAt | date }}</td>
-                <td>
-                    <div class="d-flex justify-center align-center gap-2">
-                        <button class="btn btn-primary" [routerLink]="['/admin/products', product.id]">Edit</button>
-                        <button type="button" class="btn btn-danger" (click)="deleteProduct(product.id)">Delete</button>
-                    </div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
+    <div class="mt-3">
+        <table class="table table-responsive-sm table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Product Name</th>
+                    <th>Description</th>
+                    <th>Price</th>
+                    <th>Category</th>
+                    <th>Stock</th>
+                    <th>Created At</th>
+                    <th>Updated At</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let product of products">
+                    <td>{{ product.id }}</td>
+                    <td>{{ product.name }}</td>
+                    <td>{{ product.description }}</td>
+                    <td>{{ product.price }}</td>
+                    <td>{{ product.category }}</td>
+                    <td>{{ product.stockQuantity }}</td>
+                    <td>{{ product.createdAt | date }}</td>
+                    <td>{{ product.updatedAt | date }}</td>
+                    <td>
+                        <div class="d-flex justify-center align-center gap-2">
+                            <button class="btn btn-primary" [routerLink]="['/admin/products', product.id]">Edit</button>
+                            <button type="button" class="btn btn-danger" (click)="deleteProduct(product.id)">Delete</button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 </div>

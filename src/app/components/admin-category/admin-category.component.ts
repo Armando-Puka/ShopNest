@@ -3,13 +3,15 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Category } from '../../category.model';
 import { AdminCategoryService } from '../../services/admin-category.service';
+import { InputTextModule } from 'primeng/inputtext';
+import { InputTextareaModule } from 'primeng/inputtextarea';
 
 @Component({
   selector: 'app-admin-category',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule],
+  imports: [ReactiveFormsModule, CommonModule, InputTextModule, InputTextareaModule],
   templateUrl: './admin-category.component.html',
-  styleUrl: './admin-category.component.css'
+  styleUrls: ['./admin-category.component.css', './admin-category.component.scss']
 })
 export class AdminCategoryComponent implements OnInit {
   categories: Category[] = [];

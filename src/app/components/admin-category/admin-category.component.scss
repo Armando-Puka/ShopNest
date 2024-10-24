@@ -1,0 +1,14 @@
+::ng-deep {
+    .is-invalid .p-inputtext {
+        border-bottom: 2px solid red !important;
+    }
+
+    form {
+        width: 100%;
+    }
+
+    .p-inputtextarea {
+        width: 100%;
+        height: 150px;
+    }
+}

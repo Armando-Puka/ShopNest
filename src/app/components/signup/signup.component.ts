@@ -1,29 +1,25 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
-import { FormControl, FormGroup, FormsModule, NgModel, PatternValidator, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import * as bcrypt from 'bcryptjs';
+import { CalendarModule } from 'primeng/calendar';
+import { DropdownModule } from 'primeng/dropdown';
+import { FloatLabelModule } from 'primeng/floatlabel';
+import { InputTextModule } from 'primeng/inputtext';
+import { PasswordModule } from 'primeng/password';
 
 @Component({
   selector: 'app-signup',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule, RouterModule],
+  imports: [ReactiveFormsModule, CommonModule, RouterModule, CalendarModule, DropdownModule, PasswordModule, InputTextModule, FloatLabelModule],
   templateUrl: './signup.component.html',
-  styleUrl: './signup.component.css'
+  styleUrls: ['./signup.component.css', './signup.component.scss']
 })
-export class SignupComponent {
-  name: string = '';
-  lastName: string = '';
-  username: string = '';
-  email: string = '';
-  address: string = '';
-  birthday: string = '';
-  gender: string = '';
-  password: string = '';
-  confirmPassword: string = '';
-
+export class SignupComponent implements OnInit {
   emailExists: boolean = false;
   usernameExists: boolean = false;
+  genderOptions?: { label: string; value: string;}[];
 
   constructor(private router: Router) {}
 
@@ -33,11 +29,19 @@ export class SignupComponent {
     username: new FormControl(null, [Validators.required, Validators.minLength(4), Validators.maxLength(20), Validators.pattern(/^[a-zA-Z0-9_]+$/)]),
     email: new FormControl(null, [Validators.required, Validators.email, Validators.maxLength(70)]),
     address: new FormControl(null, Validators.required),
-    birthday: new FormControl(null, Validators.required),
+    birthday: new FormControl<Date | null>(null, Validators.required),
     gender: new FormControl(null, Validators.required),
     password: new FormControl(null, [Validators.required, Validators.minLength(8), Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/)]),
     confirmPassword: new FormControl(null, Validators.required),
-  })
+  });
+
+  ngOnInit(): void {
+    this.genderOptions = [
+      { label: 'Male', value: 'male' },
+      { label: 'Female', value: 'female' },
+      { label: 'Other', value: 'other' },
+    ];
+  }
 
   // Age validation
   validateAge(): void {
@@ -59,9 +63,6 @@ export class SignupComponent {
       age--;
     }
 
-    // Find the birthday input field and cast it to HTMLInputElement
-    // const birthdayField = document.getElementById('birthday') as HTMLInputElement;
-
     if (age < 18) {
       this.signupForm.controls['birthday'].setErrors({ invalidAge: true });
     } else {
@@ -79,6 +80,15 @@ export class SignupComponent {
 
   onSignUp(): void {
     this.emailExists = false;
+
+    if (this.signupForm.invalid) {
+      Object.keys(this.signupForm.controls).forEach(controlName => {
+        this.signupForm.controls[controlName].markAllAsTouched();
+        this.signupForm.controls[controlName].markAsDirty();
+      });
+
+      return;
+    }
 
     // Basic validation for matching passwords
     if (this.signupForm.controls['password'].value !== this.signupForm.controls['confirmPassword'].value) {
@@ -140,7 +150,7 @@ export class SignupComponent {
       Gender: ${this.signupForm.controls['gender'].value}`);
 
       this.router.navigate(['/login']);
-      this.clearFields();
+      this.signupForm.reset();
   }
 
   // Clear emailExists error on input change
@@ -148,19 +158,8 @@ export class SignupComponent {
     this.emailExists = false;
   }
 
+  // Clear usernameExists error on input change
   onUsernameChange(): void {
     this.usernameExists = false;
-  }
-
-  private clearFields(): void {
-    this.name = '';
-    this.lastName = '';
-    this.username = '';
-    this.email = '';
-    this.address = '';
-    this.birthday = '';
-    this.gender = '';
-    this.password = '';
-    this.confirmPassword = '';
   }
 }
