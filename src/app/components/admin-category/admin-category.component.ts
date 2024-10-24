@@ -47,12 +47,17 @@ export class AdminCategoryComponent implements OnInit {
   }
 
   addCategory(): void {
+    if (this.categoriesForm.invalid) {
+      console.log('Form is invalid!');
+      return;
+    }
+
     if (this.categoryExistence()) {
       alert(`Category with name: ${this.categoriesForm.controls['categoryName'].value} already exists!`);
       return;
     }
     
-    if (this.categoriesForm.controls['categoryName'].value.trim()) {
+    if (this.categoriesForm.controls['categoryName'].value) {
       this.newCategory.id = this.generateId(); // Generate unique ID
       this.newCategory.name = this.categoriesForm.controls['categoryName'].value;
       this.newCategory.description = this.categoriesForm.controls['categoryDescription'].value;

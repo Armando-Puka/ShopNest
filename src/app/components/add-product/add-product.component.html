@@ -1,7 +1,7 @@
-<div class="container d-flex flex-column justify-content-center align-items-center mt-5">
+<div class="container d-flex flex-column justify-content-center align-items-center mt-3">
     <h2>{{ isEditing ? 'Edit Product' : 'Manage Products' }}</h2>
 
-    <form [formGroup]="productForm" class="d-flex flex-column mt-3 mb-3" (ngSubmit)="isEditing ? updateProduct() : addProduct()">
+    <form [formGroup]="productForm" class="d-flex flex-column mt-3 mb-4" (ngSubmit)="isEditing ? updateProduct() : addProduct()">
         <!-- Name -->
         <div class="mb-3">
             <input pInputText type="text" id="name" formControlName="name" name="name" placeholder="Product Name">
@@ -49,7 +49,7 @@
         </div>
 
         <!-- Category -->
-        <div class="mb-3">
+        <div class="mt-2 mb-3">
             <p-floatLabel>
                 <p-dropdown
                     [options]="categoryOptions"
@@ -91,6 +91,6 @@
 
         <button type="submit" class="btn btn-primary">{{ isEditing ? 'Update Product' : 'Add Product' }}</button>
 
-        <button type="button" class="btn btn-secondary" (click)="productForm.reset(); isEditing = false;" *ngIf="isEditing">Cancel</button>
+        <button type="button" class="btn btn-secondary mt-2" (click)="productForm.reset(); isEditing = false;" *ngIf="isEditing" [routerLink]="['/admin/products/new']">Cancel</button>
     </form>
 </div>

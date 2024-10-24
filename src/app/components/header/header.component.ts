@@ -67,10 +67,22 @@ export class HeaderComponent implements OnInit {
       // retun
     }
 
-    constructor(
-        private authService: AuthService,
-        private categoryService: AdminCategoryService
-    ) {}
+  constructor(
+    private router: Router,
+    private authService: AuthService,
+    private categoryService: AdminCategoryService
+  ) {
+    effect(() => {
+      const cartCount = this.cartCount();
+      if (!this.items) return;
+
+      const cartItemIdx = this.items.findIndex((itm) => itm.label === 'Cart');
+      if (cartItemIdx === -1) return;
+
+      this.items[cartItemIdx].badge = cartCount;
+      this.items = [...this.items];
+    })
+  }
 
     ngOnInit() {
         this.loadCategories();

@@ -11,7 +11,7 @@ import { CommonModule } from '@angular/common';
 import { Category } from '../../category.model';
 import { AdminCategoryService } from '../../services/admin-category.service';
 import { ProductListComponent } from '../product-list/product-list.component';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { FloatLabelModule } from 'primeng/floatlabel';
 import { DropdownModule } from 'primeng/dropdown';
 import { InputTextModule } from 'primeng/inputtext';
@@ -29,7 +29,8 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
         DropdownModule,
         InputTextModule,
         InputTextareaModule,
-        InputNumberModule
+        InputNumberModule,
+        RouterModule
     ],
     templateUrl: './add-product.component.html',
     styleUrls: ['./add-product.component.css', './add-product.component.scss'],

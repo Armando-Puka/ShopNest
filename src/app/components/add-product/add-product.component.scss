@@ -1,4 +1,9 @@
 ::ng-deep {
+    ol, ul {
+        padding-left: 0 !important;
+        margin-bottom: 0 !important;
+    }
+
     form {
         width: 50%;
     }
@@ -11,7 +16,11 @@
         width: 100%;
     }
 
-    .p-inputnumber, input {
+    .p-element .p-inputwrapper {
+        width: 100%;
+    }
+
+    .p-inputnumber-input, .p-inputnumber, p-inputnumber {
         width: 100%;
     }
 
