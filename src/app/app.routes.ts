@@ -9,6 +9,7 @@ import { HomeComponent } from './components/home/home.component';
 import { ProductDetailsComponent } from './components/product-details/product-details.component';
 import { CartComponent } from './components/cart/cart.component';
 import { ProductListComponent } from './components/product-list/product-list.component';
+import {CheckoutComponent} from "./components/checkout/checkout.component";
 // import { AdminAccessComponent } from './components/admin-access/admin-access.component';
 
 export const routes: Routes = [
@@ -21,6 +22,7 @@ export const routes: Routes = [
     { path: 'admin/products/:id', component: AddProductComponent, canActivate: [AdminAuthGuard], data: { roles: ['admin'] }},
     { path: 'product/:id', component: ProductDetailsComponent },
     { path: 'cart', component: CartComponent, canActivate: [GeneralGuard] },
+    { path: 'checkout', component: CheckoutComponent, canActivate: [GeneralGuard] },
     // { path: 'admin-access', component: AdminAccessComponent},
     // { path: 'admin', component: AdminComponent, canActivate: [AuthGuard] },
     { path: '**', redirectTo: '' }

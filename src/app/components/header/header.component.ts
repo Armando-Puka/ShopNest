@@ -1,12 +1,12 @@
 import { CommonModule } from '@angular/common';
-import { Component, DestroyRef, OnInit, computed, inject } from '@angular/core';
+import { Component, DestroyRef, OnInit, computed, effect, inject } from '@angular/core';
 import {
     FormsModule,
     FormControl,
     FormGroup,
     ReactiveFormsModule,
 } from '@angular/forms';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { Category } from '../../category.model';
 import { AdminCategoryService } from '../../services/admin-category.service';
@@ -40,7 +40,7 @@ export class HeaderComponent implements OnInit {
 
     products: any[] | undefined;
     formGroup!: FormGroup;
-    filteredProductes!: any[];
+    filteredProducts!: any[];
 
     searchTerm: string = '';
     categories: Category[] = [];
@@ -92,7 +92,7 @@ export class HeaderComponent implements OnInit {
             .subscribe(() => {
                 this.loadHeader();
             });
-        this.loadPruducts();
+        this.loadProducts();
     }
 
     filterProduct(event: AutoCompleteCompleteEvent) {
@@ -100,13 +100,13 @@ export class HeaderComponent implements OnInit {
         let query = event.query;
 
         for (let i = 0; i < (this.products as any[]).length; i++) {
-            let country = (this.products as any[])[i];
-            if (country.name.toLowerCase().indexOf(query.toLowerCase()) == 0) {
-                filtered.push(country);
+            let product = (this.products as any[])[i];
+            if (product.name.toLowerCase().indexOf(query.toLowerCase()) == 0) {
+                filtered.push(product);
             }
         }
 
-        this.filteredProductes = filtered;
+        this.filteredProducts = filtered;
     }
 
     loadHeader(): void {
@@ -158,7 +158,7 @@ export class HeaderComponent implements OnInit {
         this.categories = this.categoryService.getCategories();
     }
 
-    loadPruducts() {
+    loadProducts() {
         this.formGroup = new FormGroup({
             selectedProduct: new FormControl<object | null>(null),
         });
