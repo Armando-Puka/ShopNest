@@ -7,7 +7,7 @@ import { AuthService } from "../services/auth.service";
 })
 export class AuthGuard implements CanActivate {
   constructor(private authService: AuthService, private router: Router) {}
-  
+
   canActivate(): boolean {
     // Check if the user is logged in
     const isLoggedIn = this.authService.getCurrentUser();

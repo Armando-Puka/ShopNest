@@ -5,20 +5,20 @@
             <div>
                 <a href="#" class="navbar-brand">ShopNest</a>
             </div>
-    
+
             <div>
                 <form [formGroup]="formGroup">
                     <p-autoComplete
                         formControlName="selectedProduct"
-                        [suggestions]="filteredProductes"
+                        [suggestions]="filteredProducts"
                         (completeMethod)="filterProduct($event)"
                         optionLabel="name" />
                 </form>
-                
+
             </div>
         </div>
-        
-        
+
+
         <p-menubar [model]="items" />
 
         <div class="collapse navbar-collapse" id="navbarNav">
