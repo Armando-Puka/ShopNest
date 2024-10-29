@@ -6,11 +6,13 @@ import { CommonModule } from '@angular/common';
 import { Category } from '../../category.model';
 import { AdminCategoryService } from '../../services/admin-category.service';
 import { Router, RouterModule } from '@angular/router';
+import { TableModule } from 'primeng/table';
+
 
 @Component({
   selector: 'app-product-list',
   standalone: true,
-  imports: [ReactiveFormsModule, RouterModule, CommonModule],
+  imports: [ReactiveFormsModule, RouterModule, CommonModule,TableModule ],
   templateUrl: './product-list.component.html',
   styleUrl: './product-list.component.css'
 })

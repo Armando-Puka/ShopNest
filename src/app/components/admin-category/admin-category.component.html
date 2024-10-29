@@ -63,22 +63,24 @@
 
     <!-- Category List -->
     <h3 class="mt-2 mb-4">Category List</h3>
-    <ul class="list-group mb-5">
-        <li class="list-group-item" *ngFor="let category of categories">
-            <strong>{{ category.name }}</strong> -
-            {{ category.description || "No description" }}
-            <button
-                class="btn btn-sm btn-primary ms-2"
-                (click)="editCategory(category)"
-            >
-                Edit
-            </button>
-            <button
-                class="btn btn-sm btn-danger ms-2"
-                (click)="deleteCategory(category.id)"
-            >
-                Delete
-            </button>
-        </li>
-    </ul>
+
+    <div class="card">
+        <p-table [value]="categories" [tableStyle]="{ 'min-width': '50rem' }">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th class="center-text">Name</th>
+                    <th class="center-text">Description</th>
+                    <th class="center-text">Actions</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-categories>
+                <tr>
+                    <td class="center-text">{{categories.name}}</td>
+                    <td class="center-text">{{categories.description}}</td>
+                    <td class="center-text"> <a class="btn btn-sm btn-primary ms-2" (click)="editCategory(categories)">Edit</a>
+                    <a class="btn btn-sm btn-danger ms-2" (click)="deleteCategory(categories.id)">Delete</a></td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
 </div>

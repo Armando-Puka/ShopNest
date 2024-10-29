@@ -5,11 +5,12 @@ import { Category } from '../../category.model';
 import { AdminCategoryService } from '../../services/admin-category.service';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputTextareaModule } from 'primeng/inputtextarea';
+import { TableModule } from 'primeng/table';
 
 @Component({
   selector: 'app-admin-category',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule, InputTextModule, InputTextareaModule],
+  imports: [ReactiveFormsModule, CommonModule,TableModule, InputTextModule, InputTextareaModule],
   templateUrl: './admin-category.component.html',
   styleUrls: ['./admin-category.component.css', './admin-category.component.scss']
 })

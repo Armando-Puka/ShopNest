@@ -1,9 +1,11 @@
-<div class="contanier d-flex flex-column justify-content-center align-items-center table-responsive-sm mt-4">
+<div
+    class="contanier d-flex flex-column justify-content-center align-items-center table-responsive-sm mt-4"
+>
     <h2>Product List</h2>
 
     <div class="mt-3">
-        <table class="table table-responsive-sm table-bordered table-striped">
-            <thead>
+        <p-table [value]="products" [tableStyle]="{ 'min-width': '50rem' }">
+            <ng-template pTemplate="header">
                 <tr>
                     <th>ID</th>
                     <th>Product Name</th>
@@ -13,11 +15,11 @@
                     <th>Stock</th>
                     <th>Created At</th>
                     <th>Updated At</th>
-                    <th>Actions</th>
+                    <th class="center-text">Actions</th>
                 </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let product of products">
+            </ng-template>
+            <ng-template pTemplate="body" let-product>
+                <tr>
                     <td>{{ product.id }}</td>
                     <td>{{ product.name }}</td>
                     <td>{{ product.description }}</td>
@@ -28,12 +30,23 @@
                     <td>{{ product.updatedAt | date }}</td>
                     <td>
                         <div class="d-flex justify-center align-center gap-2">
-                            <button class="btn btn-primary" [routerLink]="['/admin/products', product.id]">Edit</button>
-                            <button type="button" class="btn btn-danger" (click)="deleteProduct(product.id)">Delete</button>
+                            <button
+                                class="btn btn-primary"
+                                [routerLink]="['/admin/products', product.id]"
+                            >
+                                Edit
+                            </button>
+                            <button
+                                type="button"
+                                class="btn btn-danger"
+                                (click)="deleteProduct(product.id)"
+                            >
+                                Delete
+                            </button>
                         </div>
                     </td>
                 </tr>
-            </tbody>
-        </table>
+            </ng-template>
+        </p-table>
     </div>
 </div>

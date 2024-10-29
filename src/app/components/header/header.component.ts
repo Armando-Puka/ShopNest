@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, DestroyRef, OnInit, computed, inject } from '@angular/core';
+import { Component, DestroyRef, OnInit, computed, effect, inject } from '@angular/core';
 import {
     FormsModule,
     FormControl,
@@ -63,12 +63,8 @@ export class HeaderComponent implements OnInit {
         ];
     }
 
-    getBaseMenuItems() {
-      // retun
-    }
-
   constructor(
-    private router: Router,
+
     private authService: AuthService,
     private categoryService: AdminCategoryService
   ) {
